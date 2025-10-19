@@ -1,0 +1,320 @@
+Function da_f(basic As Double) As Double
+da_f = basic * 20 / 100
+End Function
+Function hra_f(basic As Double) As Double
+hra_f = basic * 5 / 100
+End Function
+Function grosssalary_f(basic As Double, da As Double, hra As Double) As Double
+grosssalary_f = basic + da + hra
+End Function
+Function pf_f(grosssalary As Double) As Double
+pf_f = grosssalary * 12 / 100
+End Function
+Function netsalary_f(grosssalary As Double, pf As Double) As Long
+netsalary_f = grosssalary - pf
+End Function
+Private Sub ComboBox1_AfterUpdate()
+ComboBox2.Clear
+End Sub
+
+Private Sub ComboBox1_Enter()
+ComboBox1.Clear
+ComboBox1.AddItem "HR"
+ComboBox1.AddItem "Stock"
+ComboBox1.AddItem "Production"
+ComboBox1.AddItem "Sale"
+ComboBox1.AddItem "Marketing"
+ComboBox1.AddItem "Account"
+End Sub
+Private Sub ComboBox2_Enter()
+ComboBox2.Clear
+Select Case ComboBox1.value
+Case "hr"
+ComboBox2.AddItem "HR Head"
+ComboBox2.AddItem "HR Asistant"
+ComboBox2.AddItem "HR Exicitive"
+Case "Stock"
+ComboBox2.AddItem "Stock Manager"
+ComboBox2.AddItem "Stock Manager Asistant"
+ComboBox2.AddItem "Stock Supervisor"
+Case "Production"
+ComboBox2.AddItem "Production Head"
+ComboBox2.AddItem "Production Manager"
+ComboBox2.AddItem "Production Manager Asistant"
+ComboBox2.AddItem "Production Supervisor"
+Case "Sale"
+ComboBox2.AddItem "Sale Manager"
+ComboBox2.AddItem "Sale Manager Asistant"
+ComboBox2.AddItem "Sale Exicitive"
+Case "Marketing"
+ComboBox2.AddItem "Marketing Manager"
+ComboBox2.AddItem "Marketing Manager Asistant"
+ComboBox2.AddItem "Marketing Team Leader"
+ComboBox2.AddItem "Marketing Exicitive"
+Case "Account"
+ComboBox2.AddItem "Account Head"
+ComboBox2.AddItem "Account Manager"
+ComboBox2.AddItem "Account Exicitive"
+ComboBox2.AddItem "Account Manager"
+ComboBox2.AddItem "Account Payble"
+ComboBox2.AddItem "Account Receivable"
+End Select
+
+End Sub
+Private Sub ComboBox3_enter()
+Dim a As Long
+Dim lr As Long
+lr = Cells(Rows.Count, 1).End(xlUp).Row
+ComboBox3.Clear
+If ComboBox3.value <> "" Then
+ComboBox3.Clear
+For a = 3 To lr
+ComboBox3.AddItem Cells(a, 1).value
+Next a
+Else
+For a = 3 To lr
+ComboBox3.AddItem Cells(a, 1).value
+Next a
+End If
+End Sub
+Private Sub CommandButton1_Click()
+Dim a As Long
+Dim lr As Long
+Dim lr1 As Long
+Dim emp As String
+Dim lastvalue As String
+Dim nextid As String
+
+emp = "EmpN0"
+lr = Cells(Rows.Count, 1).End(xlUp).Row
+lr1 = Cells(Rows.Count, 1).End(xlUp).Row + 1
+If (TextBox1.value) <> "" And (ComboBox1.value) <> "" And (ComboBox2.value) <> "" _
+And TextBox2.value <> "" And TextBox3.value <> "" And TextBox4.value <> "" Then
+If Cells(lr, 1).value = "Emp.Id" Then
+Cells(lr + 1, 1).value = emp & 1
+Else
+lastvalue = Cells(lr, 1).value
+nextid = CLng(Replace(lastvalue, emp, "")) + 1
+Cells(lr + 1, 1).value = emp & nextid
+End If
+Cells(lr + 1, 2).value = TextBox1.value
+Cells(lr + 1, 3).value = ComboBox1.value
+Cells(lr + 1, 4).value = ComboBox2.value
+Cells(lr + 1, 5).value = TextBox2.value
+Cells(lr + 1, 6).value = TextBox3.value
+Cells(lr + 1, 7).value = TextBox4.value
+Cells(lr + 1, 8).value = TextBox5.value
+Cells(lr + 1, 9).value = TextBox6.value
+Cells(lr + 1, 10).value = TextBox7.value
+Cells(lr + 1, 11).value = TextBox8.value
+Cells(lr + 1, 12).value = TextBox9.value
+Range("a3:l" & lr1).Borders.LineStyle = xlContinuous
+UserForm1.Hide
+MsgBox "Submited Sucessfull"
+Call Boxcleaner
+UserForm1.Show
+Else
+MsgBox "Please Add Valid Information", vbExclamation
+
+End If
+
+End Sub
+
+Private Sub CommandButton2_Click()
+Call Boxcleaner
+End Sub
+
+Private Sub CommandButton3_Click()
+
+Dim a As Long
+Dim fvalue As String
+Dim lr As Long
+Dim rng As Range
+Dim val As String
+fvalue = ComboBox3.value
+lr = Cells(Rows.Count, 1).End(xlUp).Row
+Set rng = Range("a3:a" & lr).Find(fvalue)
+If Not rng Is Nothing Then
+rng.EntireRow.Select
+If TextBox1.value = "" Or ComboBox1.value = "" Or ComboBox2.value = "" _
+Or TextBox3.value = "" Or TextBox4.value = "" Or TextBox5.value = "" Or TextBox6.value = "" _
+Or TextBox7.value = "" Or TextBox8.value = "" Or TextBox9.value = "" Then
+MsgBox "Invalid Value Please Check", vbExclamation
+
+Else
+ Cells(rng.Row, 2).value = TextBox1.value
+Cells(rng.Row, 3).value = ComboBox1.value
+ Cells(rng.Row, 4).value = ComboBox2.value
+Cells(rng.Row, 5).value = TextBox2.value
+ Cells(rng.Row, 6).value = TextBox3.value
+ Cells(rng.Row, 7).value = TextBox4.value
+ Cells(rng.Row, 8).value = TextBox5.value
+ Cells(rng.Row, 9).value = TextBox6.value
+ Cells(rng.Row, 10).value = TextBox7.value
+ Cells(rng.Row, 11).value = TextBox8.value
+ Cells(rng.Row, 12).value = TextBox9.value
+ 
+
+ If MsgBox("Data Update Sucessfully", vbQuestion + vbYesNo, "Do you cheack?") = vbYes Then
+ UserForm1.Hide
+Call Boxclear
+ComboBox3.Clear
+Else
+UserForm1.Hide
+UserForm1.Show
+End If
+End If
+End If
+End Sub
+
+Private Sub CommandButton4_Click()
+Dim a As Long
+Dim fvalue As String
+Dim lr As Long
+Dim rng As Range
+Dim val As String
+fvalue = ComboBox3.value
+lr = Cells(Rows.Count, 1).End(xlUp).Row
+Set rng = Range("a3:a" & lr).Find(fvalue)
+If Not rng Is Nothing Then
+rng.EntireRow.Select
+If MsgBox("Do you Delete data", vbYesNo) = vbYes Then
+rng.EntireRow.Delete
+MsgBox "Data Delete Sucessfully"
+Call Boxclear
+ComboBox3.value = ""
+Else
+MsgBox "Not Deleted"
+End If
+End If
+
+
+
+End Sub
+
+Private Sub CommandButton5_Click()
+UserForm1.Hide
+Call Boxclear
+
+End Sub
+Private Sub CommandButton6_Click()
+Dim a As Long
+Dim fvalue As String
+Dim lr As Long
+Dim rng As Range
+Dim val As String
+fvalue = ComboBox3.value
+lr = Cells(Rows.Count, 1).End(xlUp).Row
+Set rng = Range("a3:a" & lr).Find(fvalue)
+If Not rng Is Nothing Then
+rng.EntireRow.Select
+TextBox1.value = Cells(rng.Row, 2).value
+ComboBox1.value = Cells(rng.Row, 3).value
+ComboBox2.value = Cells(rng.Row, 4).value
+TextBox2.value = Cells(rng.Row, 5).value
+TextBox3.value = Cells(rng.Row, 6).value
+TextBox4.value = Cells(rng.Row, 7).value
+Call TextBox5_Change
+Call TextBox6_Change
+Call TextBox7_Change
+Call TextBox8_Change
+Call TextBox9_Change
+CommandButton1.Enabled = False
+Else
+MsgBox "Not Found"
+End If
+End Sub
+Private Sub TextBox4_AfterUpdate()
+Call TextBox5_Change
+Call TextBox6_Change
+Call TextBox7_Change
+Call TextBox8_Change
+Call TextBox9_Change
+End Sub
+Private Sub TextBox5_Change()
+Dim basic As Double
+Dim da As Double
+
+ If IsNumeric(TextBox4.value) Then
+        basic = CDbl(TextBox4.value)
+        da = da_f(basic)
+        TextBox5.value = da
+        TextBox5.Locked = True
+    End If
+
+    Application.EnableEvents = True
+End Sub
+
+Private Sub TextBox6_Change()
+Dim basic As Double
+Dim hra As Double
+If IsNumeric(TextBox4.value) Then
+basic = CDbl(TextBox4.value)
+hra = hra_f(basic)
+TextBox6.value = hra
+TextBox6.Locked = True
+End If
+Application.EnableEvents = True
+
+End Sub
+
+Private Sub TextBox7_Change()
+Dim basic As Double
+Dim da As Double
+Dim hra As Double
+Dim grosssalary As Double
+ If IsNumeric(TextBox4.value) And IsNumeric(TextBox5.value) And IsNumeric(TextBox6.value) Then
+        basic = CDbl(TextBox4.value)
+        da = CDbl(TextBox5.value)
+        hra = CDbl(TextBox6.value)
+        
+        grosssalary = grosssalary_f(basic, da, hra)
+        Application.EnableEvents = False
+        TextBox7.value = grosssalary
+        TextBox7.Locked = True
+        Application.EnableEvents = True
+    Else
+        TextBox7.value = ""
+    End If
+    
+    End Sub
+
+Private Sub TextBox8_Change()
+Dim grosssalary As Double
+Dim pf As Double
+  If IsNumeric(TextBox7.value) Then
+        grosssalary = CDbl(TextBox7.value)
+        pf = pf_f(grosssalary)
+
+        Application.EnableEvents = False
+        TextBox8.value = pf
+        TextBox8.Locked = True
+        Application.EnableEvents = True
+    Else
+        TextBox8.value = ""
+    End If
+
+End Sub
+Private Sub TextBox9_Change()
+Dim grosssalary As Double
+Dim pf As Double
+Dim netsalary As Long
+If IsNumeric(TextBox7.value) And IsNumeric(TextBox8.value) Then
+
+grosssalary = CDbl(TextBox7.value)
+
+pf = CDbl(TextBox8.value)
+netsalary = netsalary_f(grosssalary, pf)
+Application.EnableEvents = False
+TextBox9.value = netsalary
+TextBox9.Locked = True
+Application.EnableEvents = True
+Else
+TextBox8.value = ""
+End If
+End Sub
+Private Sub UserForm_Initialize()
+
+Call Tabwise
+
+End Sub
