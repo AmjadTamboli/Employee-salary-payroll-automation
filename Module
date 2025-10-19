@@ -1,0 +1,64 @@
+Sub Employeesalary_userform()
+'UserForm open'
+UserForm1.Show
+End Sub
+
+Sub Boxcleaner()
+With UserForm1
+.TextBox1.value = ""
+.ComboBox1.value = ""
+.ComboBox2.value = ""
+.TextBox2.value = ""
+.TextBox3.value = ""
+.TextBox4.value = ""
+.TextBox5.Locked = False:
+.TextBox5.value = ""
+.TextBox6.Locked = False:
+.TextBox6.value = ""
+.TextBox7.Locked = False:
+.TextBox7.value = ""
+.TextBox8.Locked = False:
+.TextBox8.value = ""
+.TextBox9.Locked = False:
+.TextBox9.value = ""
+End With
+End Sub
+
+Sub Boxclear()
+With UserForm1
+.TextBox1.value = ""
+.ComboBox1.value = ""
+.ComboBox2.value = ""
+.TextBox2.value = ""
+.TextBox3.value = ""
+.TextBox4.value = ""
+.TextBox5.value = ""
+.TextBox6.value = ""
+.TextBox7.value = ""
+.TextBox8.value = ""
+.TextBox9.value = ""
+End With
+End Sub
+
+Sub Tabwise()
+With UserForm1
+.ComboBox3.TabIndex = 0
+.CommandButton6.TabIndex = 1
+.TextBox1.TabIndex = 2
+.ComboBox1.TabIndex = 3
+.ComboBox2.TabIndex = 4
+.TextBox2.TabIndex = 5
+.TextBox3.TabIndex = 6
+.TextBox4.TabIndex = 7
+.TextBox5.TabIndex = 8
+.TextBox6.TabIndex = 9
+.TextBox7.TabIndex = 10
+.TextBox8.TabIndex = 11
+.TextBox9.TabIndex = 12
+.CommandButton1.TabIndex = 13
+.CommandButton2.TabIndex = 14
+.CommandButton3.TabIndex = 15
+.CommandButton4.TabIndex = 16
+End With
+End Sub
+
